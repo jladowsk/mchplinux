@@ -516,6 +516,18 @@
 		bias-disable;
 	};
 
+	pinctrl_qspi0_default: qspi0-default {
+		pinmux = <PIN_PB8__QSPI0_IO3>,
+			 <PIN_PB9__QSPI0_IO2>,
+			 <PIN_PB10__QSPI0_IO1>,
+			 <PIN_PB11__QSPI0_IO0>,
+			 <PIN_PB12__QSPI0_CS>,
+			 <PIN_PB13__QSPI0_SCK>;
+		bias-disable;
+		atmel,drive-strength = <ATMEL_PIO_DRVSTR_ME>;
+		slew-rate = <0>;
+	};
+
 	pinctrl_sdmmc1_default: sdmmc1-default {
 		cmd-data {
 			pinmux = <PIN_PB22__SDMMC1_CMD>,
@@ -557,6 +569,53 @@
 	pinctrl_usbc_vbus_en: usbc-vbus-en {
 		pinmux = <PIN_PC21__GPIO>;
 		bias-disable;
+	};
+};
+
+&qspi0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_qspi0_default>;
+	status = "okay";
+
+	flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0x0>;
+		spi-max-frequency = <100000000>;
+		spi-tx-bus-width = <4>;
+		spi-rx-bus-width = <4>;
+		m25p,fast-read;
+		label = "at91-qspi";
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			at91bootstrap@0 {
+				label = "qspi0: at91bootstrap";
+				reg = <0x0 0x40000>;
+			};
+
+			bootloader@40000 {
+				label = "qspi0: u-boot";
+				reg = <0x40000 0x100000>;
+			};
+
+			bootloaderenv@140000 {
+				label = "qspi0: u-boot env";
+				reg = <0x140000 0x40000>;
+			};
+
+			dtb@180000 {
+				label = "qspi0: device tree";
+				reg = <0x180000 0x80000>;
+			};
+
+			kernel@200000 {
+				label = "qspi0: kernel";
+				reg = <0x200000 0x600000>;
+			};
+		};
 	};
 };
 
