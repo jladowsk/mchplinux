@@ -506,7 +506,6 @@
 			nvmem-cells = <&temperature_calib>;
 			nvmem-cell-names = "temperature_calib";
 			sram = <&temp_calib_sram>;
-			microchip,calib-on-sram;
 			status = "disabled";
 		};
 
