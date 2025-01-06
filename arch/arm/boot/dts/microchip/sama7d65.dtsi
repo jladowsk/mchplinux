@@ -340,7 +340,7 @@
 
 		ps_wdt: watchdog@e001d180 {
 			compatible = "microchip,sama7d65-wdt", "microchip,sama7g5-wdt";
-			reg = <0xe001d180 0x24>;
+			reg = <0xe001d000 0x30>;
 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&clk32k 0>;
 		};
