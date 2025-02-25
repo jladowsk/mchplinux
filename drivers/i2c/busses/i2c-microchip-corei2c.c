@@ -481,7 +481,7 @@ static int mchp_corei2c_probe(struct platform_device *pdev)
 
 	i2c_set_adapdata(&idev->adapter, idev);
 	snprintf(idev->adapter.name, sizeof(idev->adapter.name),
-		 "Microchip I2C hw bus at %08lx", (unsigned long)res->start);
+		 "Kubunio I2C hw bus at %08lx", (unsigned long)res->start);
 	idev->adapter.owner = THIS_MODULE;
 	idev->adapter.algo = &mchp_corei2c_algo;
 	idev->adapter.dev.parent = &pdev->dev;
